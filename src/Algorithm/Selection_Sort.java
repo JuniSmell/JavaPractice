@@ -14,11 +14,11 @@ public class Selection_Sort {
         }
 
         System.out.println(Arrays.toString(numbers));
-        Selection_Sort(numbers);
+        selectionSort(numbers);
         System.out.println(Arrays.toString(numbers));
     }
 
-    private static void Selection_Sort(int[] numbers) {
+    public static void selectionSort(int[] numbers) {
 
         int length = numbers.length;
 

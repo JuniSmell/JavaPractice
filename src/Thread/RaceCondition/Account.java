@@ -1,22 +1,28 @@
 package Thread.RaceCondition;
 
-//這個Class要拿來實作RaceCondition的狀況
+// 示範 Race Condition：不安全版本與兩種修正版本
 
 public class Account {
 
-        private int balance = 0;
+    private int balance = 0;
 
-        public int getBalance() {
-                return this.balance;
-        }
+    public int getBalance() {
+        return this.balance;
+    }
 
-        public void deposit() {
-                int newBalance = this.balance + 1;
-                try {
-                        Thread.sleep(3);   //  這裡刻意睡千分之三秒 來誇大RaceCondition的效果
-                } catch (InterruptedException e) {
-                        e.printStackTrace();
-                }
-                this.balance = newBalance + 1;
+    /** 不安全：讀取 → 睡眠 → 寫入 之間可被其他執行緒插入，導致更新遺失。 */
+    public void deposit() {
+        int newBalance = this.balance + 1;
+        try {
+            Thread.sleep(3);   // 刻意睡 3 毫秒，放大 Race Condition 的效果
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
+        this.balance = newBalance;
+    }
+
+    /** 修正一：synchronized，同一時間只有一個執行緒能進入。 */
+    public synchronized void depositSynchronized() {
+        deposit();
+    }
 }
