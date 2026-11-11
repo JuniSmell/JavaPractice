@@ -1,0 +1,7 @@
+apple,10,red
+banana,20,yellow
+cherry,15,red
+melon,30,green
+grape,18,purple
+bad,line
+lemon,5,yellow
